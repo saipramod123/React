@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
+import { Card, CardBody, CardImg, CardText, CardTitle,Breadcrumb,BreadcrumbItem } from "reactstrap";
 
-
+import { Link } from 'react-router-dom';
  
     function Renderdish({ dish }) 
     {
@@ -20,15 +20,15 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
             return null;
         } 
     }
-    function RenderComments({ dish }) 
+    function RenderComments({ comments }) 
     {
         //console.log(dish);
-        if (dish != null) { 
+        if (comments!= null) { 
             return (
                 <div>
                     <h4>Comments</h4>
                     <ul className="list-group">
-                        {dish.comments.map((x) => {
+                        {comments.map((x) => {
                             return (
                                 <li key={x.id} className="list-group mt-3">
                                     <p>{x.comment}</p>
@@ -58,12 +58,27 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
       
         return (
             <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                       
+                        <BreadcrumbItem><Link to='/menu'>Menu</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}
+                    </BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
+
+
             <div className="row">
                 <div className="col-12 col-md-5 m-1">
                 <Renderdish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                    <RenderComments dish={props.dish} />
+                    <RenderComments comments={props.comments} />
                 </div>
             </div>
             </div>
