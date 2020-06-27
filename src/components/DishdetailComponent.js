@@ -5,10 +5,17 @@ import { Button, Label, Col, Row, Modal, ModalHeader, ModalBody } from 'reactstr
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent'; 
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform,Stagger,Fade} from 'react-animation-components';
     function Renderdish({ dish }) 
     {
       if( dish!=null){ 
             return (
+
+                <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
                 <Card>
                     <CardImg width="100%" src={baseUrl+dish.image} />
                     <CardBody>
@@ -16,6 +23,7 @@ import { baseUrl } from '../shared/baseUrl';
                         <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
+                </FadeTransform>
             );
             }
         else{
@@ -30,8 +38,10 @@ function RenderComments({ comments ,postComment, dishId })
                 <div>
                     <h4>Comments</h4>
                     <ul className="list-group">
+                        <Stagger in>
                         {comments.map((x) => {
                             return (
+                                <Fade in>
                                 <li key={x.id} className="list-group mt-3">
                                     <p>{x.comment}</p>
                                     <p>
@@ -46,9 +56,11 @@ function RenderComments({ comments ,postComment, dishId })
 
                                     </p>
                                 </li>
+                                </Fade>
                                
                             );
                         })}
+                        </Stagger>
                     </ul>
                     <Commentform dishId={dishId} postComment={postComment} />
                 </div>
